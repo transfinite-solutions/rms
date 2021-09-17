@@ -1,5 +1,6 @@
 package one.transfinite.rms.user;
 
+import one.transfinite.rms.role.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -37,16 +38,20 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<UserAddress> userAddresses = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role role;
+
     public User() {
     }
 
-    public User(UUID userId, @NotBlank String name, @NotBlank String email, @NotBlank String phone, @NotBlank String password, Set<UserAddress> userAddresses) {
+    public User(UUID userId, @NotBlank String name, @NotBlank String email, @NotBlank String phone, @NotBlank String password, Set<UserAddress> userAddresses, Role role) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.userAddresses = userAddresses;
+        this.role = role;
     }
 
     public UUID getUserId() {
@@ -95,6 +100,14 @@ public class User {
 
     public void setUserAddresses(Set<UserAddress> userAddresses) {
         this.userAddresses = userAddresses;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
