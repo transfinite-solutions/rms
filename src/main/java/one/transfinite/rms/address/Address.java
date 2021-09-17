@@ -1,13 +1,17 @@
 package one.transfinite.rms.address;
 
+import one.transfinite.rms.user.UserAddress;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "address")
 public class Address {
 
     @Id
@@ -16,33 +20,37 @@ public class Address {
     @Column(updatable = false, nullable = false)
     private UUID addressId;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String line1;
 
-    @NotNull
     private String landmark;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String city;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String state;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String country;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String pincode;
+
+    private String tag;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "address")
+    private Set<UserAddress> userAddresses = new HashSet<>();
 
     public Address() {
     }
 
-    public Address(UUID addressId, @NotNull String line1, @NotNull String landmark, @NotNull String city, @NotNull String state, @NotNull String country, @NotNull String pincode) {
+    public Address(UUID addressId, @NotBlank String line1, String landmark, @NotBlank String city, @NotBlank String state, @NotBlank String country, @NotBlank String pincode, String tag, Set<UserAddress> userAddresses) {
         this.addressId = addressId;
         this.line1 = line1;
         this.landmark = landmark;
@@ -50,6 +58,8 @@ public class Address {
         this.state = state;
         this.country = country;
         this.pincode = pincode;
+        this.tag = tag;
+        this.userAddresses = userAddresses;
     }
 
     public UUID getAddressId() {

@@ -3,44 +3,50 @@ package one.transfinite.rms.user;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(updatable = false, nullable = false)
     private UUID userId;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String email;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String phone;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<UserAddress> userAddresses = new HashSet<>();
 
     public User() {
     }
 
-    public User(UUID userId, @NotNull String name, @NotNull String email, @NotNull String phone, @NotNull String password) {
+    public User(UUID userId, @NotBlank String name, @NotBlank String email, @NotBlank String phone, @NotBlank String password, Set<UserAddress> userAddresses) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.userAddresses = userAddresses;
     }
 
     public UUID getUserId() {
@@ -81,6 +87,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserAddress> getUserAddresses() {
+        return userAddresses;
+    }
+
+    public void setUserAddresses(Set<UserAddress> userAddresses) {
+        this.userAddresses = userAddresses;
     }
 
     @Override
