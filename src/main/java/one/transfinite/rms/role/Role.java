@@ -1,6 +1,7 @@
 package one.transfinite.rms.role;
 
 import one.transfinite.rms.user.User;
+import one.transfinite.rms.utility.RoleName;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,11 +13,12 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID roleId;
 
     @Column(nullable = false)
-    private String name;
+    private RoleName name;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<User> users;
@@ -24,7 +26,12 @@ public class Role {
     public Role() {
     }
 
-    public Role(UUID roleId, String name, List<User> users) {
+    public Role(UUID roleId, RoleName name) {
+        this.roleId = roleId;
+        this.name = name;
+    }
+
+    public Role(UUID roleId, RoleName name, List<User> users) {
         this.roleId = roleId;
         this.name = name;
         this.users = users;
@@ -38,11 +45,11 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public String getName() {
+    public RoleName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleName name) {
         this.name = name;
     }
 

@@ -118,6 +118,22 @@ public class Address {
         this.pincode = pincode;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public Set<UserAddress> getUserAddresses() {
+        return userAddresses;
+    }
+
+    public void setUserAddresses(Set<UserAddress> userAddresses) {
+        this.userAddresses = userAddresses;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
@@ -128,6 +144,8 @@ public class Address {
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
                 ", pincode='" + pincode + '\'' +
+                ", tag='" + tag + '\'' +
+                ", userAddresses=" + userAddresses +
                 '}';
     }
 }

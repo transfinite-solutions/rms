@@ -24,11 +24,11 @@ public class User {
     private String name;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String phone;
 
     @NotBlank
@@ -39,6 +39,7 @@ public class User {
     private Set<UserAddress> userAddresses = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "role_id")
     private Role role;
 
     public User() {
