@@ -143,4 +143,20 @@ public class Order {
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", from=" + from +
+                ", to=" + to +
+                ", vendor=" + vendor +
+                ", customer=" + customer +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", totalPrice=" + totalPrice +
+                ", address=" + address +
+                ", paymentStatus=" + paymentStatus +
+                '}';
+    }
 }

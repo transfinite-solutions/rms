@@ -15,10 +15,9 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private UUID addressId;
+    private Long addressId;
 
     @NotBlank
     @Column(nullable = false)
@@ -50,7 +49,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(UUID addressId, @NotBlank String line1, String landmark, @NotBlank String city, @NotBlank String state, @NotBlank String country, @NotBlank String pincode, String tag, Set<UserAddress> userAddresses) {
+    public Address(Long addressId, String line1, String landmark, String city, String state, String country, String pincode, String tag, Set<UserAddress> userAddresses) {
         this.addressId = addressId;
         this.line1 = line1;
         this.landmark = landmark;
@@ -62,11 +61,11 @@ public class Address {
         this.userAddresses = userAddresses;
     }
 
-    public UUID getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(UUID addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 

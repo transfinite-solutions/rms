@@ -27,7 +27,21 @@ public class Product {
     public Product() {
     }
 
+    public Product(Long productId, String name, String description, String imageUrl, User user) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.user = user;
+    }
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     public String getName() {
         return name;
