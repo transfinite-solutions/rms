@@ -18,15 +18,15 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User getUserById(UUID userId) {
-        return this.userRepository.findById(userId).orElse(null);
+    public User getUserById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User does not exists"));
     }
 
     public void addUser(User user) {
         this.userRepository.save(user);
     }
 
-    public void deleteUser(UUID userId) {
+    public void deleteUser(Long userId) {
         this.userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User does not exists"));
         this.userRepository.deleteById(userId);
     }

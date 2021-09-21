@@ -13,9 +13,9 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID roleId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
+    private Long roleId;
 
     @Column(nullable = false)
     private RoleName name;
@@ -26,22 +26,22 @@ public class Role {
     public Role() {
     }
 
-    public Role(UUID roleId, RoleName name) {
+    public Role(Long roleId, RoleName name) {
         this.roleId = roleId;
         this.name = name;
     }
 
-    public Role(UUID roleId, RoleName name, List<User> users) {
+    public Role(Long roleId, RoleName name, List<User> users) {
         this.roleId = roleId;
         this.name = name;
         this.users = users;
     }
 
-    public UUID getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(UUID roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

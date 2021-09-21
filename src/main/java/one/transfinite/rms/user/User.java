@@ -15,9 +15,9 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private Long userId;
 
     @NotBlank
     @Column(nullable = false)
@@ -39,13 +39,18 @@ public class User {
     private Set<UserAddress> userAddresses = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "role_id")
     private Role role;
 
     public User() {
     }
 
-    public User(UUID userId, @NotBlank String name, @NotBlank String email, @NotBlank String phone, @NotBlank String password, Set<UserAddress> userAddresses, Role role) {
+    public User(Long userId,
+                @NotBlank String name,
+                @NotBlank String email,
+                @NotBlank String phone,
+                @NotBlank String password,
+                Set<UserAddress> userAddresses,
+                Role role) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -55,11 +60,11 @@ public class User {
         this.role = role;
     }
 
-    public UUID getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

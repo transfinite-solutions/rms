@@ -1,6 +1,7 @@
 package one.transfinite.rms.order;
 
 import one.transfinite.rms.address.Address;
+import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
 import one.transfinite.rms.utility.PaymentStatus;
 import one.transfinite.rms.utility.Status;
@@ -8,13 +9,17 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
+@Entity
+@Table(name = "order")
 public class Order {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private Long orderId;
 
@@ -26,12 +31,10 @@ public class Order {
     @Column(nullable = false)
     private Date to;
 
-    @NotBlank
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User vendor;
 
-    @NotBlank
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User customer;
 
     @NotBlank
@@ -43,15 +46,27 @@ public class Order {
     private Double totalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "address_id")
     private Address address;
 
     private PaymentStatus paymentStatus;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Stock> stocks = new ArrayList<>();
+
     public Order() {
     }
 
-    public Order(Long orderId, Date from, Date to, User vendor, User customer, Status status, Date createdAt, Double totalPrice, Address address, PaymentStatus paymentStatus) {
+    public Order(Long orderId,
+                 Date from,
+                 Date to,
+                 User vendor,
+                 User customer,
+                 Status status,
+                 Date createdAt,
+                 Double totalPrice,
+                 Address address,
+                 PaymentStatus paymentStatus,
+                 List<Stock> stocks) {
         this.orderId = orderId;
         this.from = from;
         this.to = to;
@@ -62,6 +77,7 @@ public class Order {
         this.totalPrice = totalPrice;
         this.address = address;
         this.paymentStatus = paymentStatus;
+        this.stocks = stocks;
     }
 
     public Long getOrderId() {
@@ -142,6 +158,14 @@ public class Order {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public List<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     @Override

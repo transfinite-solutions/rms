@@ -11,4 +11,5 @@ public class RmsApplication {
 		SpringApplication.run(RmsApplication.class, args);
 	}
 
+	private
 }

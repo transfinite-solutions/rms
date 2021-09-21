@@ -7,37 +7,33 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "address_id"})
-})
+@Table()
 public class UserAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "address_id")
     private Address address;
 
     public UserAddress() {
     }
 
-    public UserAddress(Long userId, User user, Address address) {
-        this.userId = userId;
+    public UserAddress(Long id, User user, Address address) {
+        this.id = id;
         this.user = user;
         this.address = address;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {

@@ -1,5 +1,5 @@
 package one.transfinite.rms.utility;
 
-public enum AVAILABILITY {
+public enum Availability {
     AVAILABLE, UNAVAILABLE, RENTED
 }

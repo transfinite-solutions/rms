@@ -1,12 +1,14 @@
 package one.transfinite.rms.product;
 
+import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -21,18 +23,22 @@ public class Product {
 
     private String imageUrl;
 
-    @Column(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
+    private List<Stock> stocks = new ArrayList<>();
 
     public Product() {
     }
 
-    public Product(Long productId, String name, String description, String imageUrl, User user) {
+    public Product(Long productId, String name, String description, String imageUrl, User user, List<Stock> stocks) {
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.user = user;
+        this.stocks = stocks;
     }
 
     public Long getProductId() {
@@ -73,5 +79,13 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(List<Stock> stocks) {
+        this.stocks = stocks;
     }
 }
