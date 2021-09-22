@@ -18,7 +18,7 @@ public class Role {
     private Long roleId;
 
     @Column(nullable = false)
-    private RoleName name;
+    private String name;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<User> users;
@@ -26,12 +26,12 @@ public class Role {
     public Role() {
     }
 
-    public Role(Long roleId, RoleName name) {
+    public Role(Long roleId, String name) {
         this.roleId = roleId;
         this.name = name;
     }
 
-    public Role(Long roleId, RoleName name, List<User> users) {
+    public Role(Long roleId, String name, List<User> users) {
         this.roleId = roleId;
         this.name = name;
         this.users = users;
@@ -45,11 +45,11 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public RoleName getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(RoleName name) {
+    public void setName(String name) {
         this.name = name;
     }
 

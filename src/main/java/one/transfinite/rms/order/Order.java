@@ -5,31 +5,28 @@ import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
 import one.transfinite.rms.utility.PaymentStatus;
 import one.transfinite.rms.utility.Status;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Table(name = "shop_order")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
     private Long orderId;
 
     @NotBlank
     @Column(nullable = false)
-    private Date from;
+    private Date fromDate;
 
     @NotBlank
     @Column(nullable = false)
-    private Date to;
+    private Date toDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User vendor;
@@ -50,15 +47,15 @@ public class Order {
 
     private PaymentStatus paymentStatus;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Stock> stocks = new ArrayList<>();
 
     public Order() {
     }
 
     public Order(Long orderId,
-                 Date from,
-                 Date to,
+                 Date fromDate,
+                 Date toDate,
                  User vendor,
                  User customer,
                  Status status,
@@ -68,8 +65,8 @@ public class Order {
                  PaymentStatus paymentStatus,
                  List<Stock> stocks) {
         this.orderId = orderId;
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
         this.vendor = vendor;
         this.customer = customer;
         this.status = status;
@@ -88,20 +85,20 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getToDate() {
+        return toDate;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     public User getVendor() {
@@ -172,8 +169,8 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", from=" + from +
-                ", to=" + to +
+                ", from=" + fromDate +
+                ", to=" + toDate +
                 ", vendor=" + vendor +
                 ", customer=" + customer +
                 ", status=" + status +

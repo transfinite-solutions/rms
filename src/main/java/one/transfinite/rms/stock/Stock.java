@@ -14,7 +14,6 @@ public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
     private Long stockId;
 
     @ManyToOne(fetch = FetchType.EAGER)
