@@ -42,12 +42,12 @@ public class Order {
 
     private Double totalPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
     private PaymentStatus paymentStatus;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Stock> stocks = new ArrayList<>();
 
     public Order() {

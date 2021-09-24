@@ -2,9 +2,11 @@ package one.transfinite.rms.product;
 
 import one.transfinite.rms.execption.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService {
 
     @Autowired
