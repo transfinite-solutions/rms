@@ -1,8 +1,10 @@
 package one.transfinite.rms.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import one.transfinite.rms.address.Address;
 import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
+import one.transfinite.rms.utility.OrderType;
 import one.transfinite.rms.utility.PaymentStatus;
 import one.transfinite.rms.utility.Status;
 
@@ -18,14 +20,11 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Long orderId;
 
-    @NotBlank
-    @Column(nullable = false)
     private Date fromDate;
 
-    @NotBlank
-    @Column(nullable = false)
     private Date toDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -34,36 +33,53 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     private User customer;
 
-    @NotBlank
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
 
     private Date createdAt;
 
     private Double totalPrice;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "address_id")
     private Address address;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Stock> stocks = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    private List<OrderStock> orderStocks = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_stock",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "stock_id"))
+    private List<Stock> orderStocks = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(Long orderId,
-                 Date fromDate,
-                 Date toDate,
-                 User vendor,
-                 User customer,
-                 Status status,
-                 Date createdAt,
-                 Double totalPrice,
-                 Address address,
-                 PaymentStatus paymentStatus,
-                 List<Stock> stocks) {
+//    public Order(Long orderId, Date fromDate, Date toDate, User vendor, User customer, Status status, Date createdAt, Double totalPrice, Address address, PaymentStatus paymentStatus, List<OrderStock> orderStocks) {
+//        this.orderId = orderId;
+//        this.fromDate = fromDate;
+//        this.toDate = toDate;
+//        this.vendor = vendor;
+//        this.customer = customer;
+//        this.status = status;
+//        this.createdAt = createdAt;
+//        this.totalPrice = totalPrice;
+//        this.address = address;
+//        this.paymentStatus = paymentStatus;
+//        this.orderStocks = orderStocks;
+//    }
+
+
+    public Order(Long orderId, Date fromDate, Date toDate, User vendor, User customer, Status status, Date createdAt, Double totalPrice, Address address, PaymentStatus paymentStatus, List<Stock> orderStocks) {
         this.orderId = orderId;
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -74,7 +90,7 @@ public class Order {
         this.totalPrice = totalPrice;
         this.address = address;
         this.paymentStatus = paymentStatus;
-        this.stocks = stocks;
+        this.orderStocks = orderStocks;
     }
 
     public Long getOrderId() {
@@ -157,12 +173,21 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public List<Stock> getStocks() {
-        return stocks;
+    //    public List<OrderStock> getOrderStocks() {
+//        return orderStocks;
+//    }
+//
+//    public void setOrderStocks(List<OrderStock> orderStocks) {
+//        this.orderStocks = orderStocks;
+//    }
+
+
+    public List<Stock> getOrderStocks() {
+        return orderStocks;
     }
 
-    public void setStocks(List<Stock> stocks) {
-        this.stocks = stocks;
+    public void setOrderStocks(List<Stock> orderStocks) {
+        this.orderStocks = orderStocks;
     }
 
     @Override

@@ -1,10 +1,15 @@
 package one.transfinite.rms.user;
 
+import one.transfinite.rms.address.Address;
+import one.transfinite.rms.execption.ApiBadRequestException;
+import one.transfinite.rms.execption.ResourceNotFoundException;
+import one.transfinite.rms.utility.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,21 +23,53 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailValidator emailValidator;
+
     public List<User> getAllUsers(){
         return this.userRepository.findAll();
     }
 
     public User getUserById(Long userId) {
-        return this.userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User does not exists"));
+        return this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User does not exists"));
     }
 
     public void addUser(User user) {
+        User searchedUserByEmail = userRepository.findUserByEmail(user.getEmail()).orElse(null);
+        User searchedUserByPhone = userRepository.findUserByPhone(user.getPhone()).orElse(null);
+
+        if (!emailValidator.test(user.getEmail())){
+            throw new ApiBadRequestException(user.getEmail() + " is not valid");
+        }
+        if (searchedUserByEmail != null){
+            throw new ApiBadRequestException(user.getEmail() + " is already taken");
+        }
+        if (searchedUserByPhone != null) {
+            throw new ApiBadRequestException("Phone already taken");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
 
+    public void addAddress(Long userId, List<Address> addresses) {
+        List<Address> addressList;
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User does not exists"));
+        addressList = user.getAddresses();
+
+        addresses.forEach(address -> {
+            address.setUser(user);
+            addressList.add(address);
+        });
+        System.out.println(addresses);
+
+
+        user.setAddresses(addressList);
+        this.userRepository.save(user);
+    }
+
     public void deleteUser(Long userId) {
-        this.userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User does not exists"));
+        this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User does not exists"));
         this.userRepository.deleteById(userId);
     }
 }

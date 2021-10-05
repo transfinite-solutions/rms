@@ -27,6 +27,11 @@ public class AddressController {
         addressService.addAddress(address);
     }
 
+    @PutMapping
+    public void updateAddress(@RequestBody Address address) {
+        addressService.updateAddress(address);
+    }
+
     @DeleteMapping("/{addressId}")
     public void deleteMapping(@PathVariable Long addressId) {
         addressService.deleteAddress(addressId);

@@ -1,5 +1,6 @@
 package one.transfinite.rms.product;
 
+import one.transfinite.rms.category.Category;
 import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
 
@@ -13,7 +14,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+    @Column(name = "product_id",updatable = false, nullable = false)
     private Long productId;
 
     @Column(nullable = false)
@@ -26,19 +27,22 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-    private List<Stock> stocks = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
+//    private List<Stock> stocks = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Category category;
 
     public Product() {
     }
 
-    public Product(Long productId, String name, String description, String imageUrl, User user, List<Stock> stocks) {
+    public Product(Long productId, String name, String description, String imageUrl, User user, Category category) {
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.user = user;
-        this.stocks = stocks;
+        this.category = category;
     }
 
     public Long getProductId() {
@@ -81,11 +85,20 @@ public class Product {
         this.user = user;
     }
 
-    public List<Stock> getStocks() {
-        return stocks;
+//    public List<Stock> getStocks() {
+//        return stocks;
+//    }
+//
+//    public void setStocks(List<Stock> stocks) {
+//        this.stocks = stocks;
+//    }
+
+
+    public Category getCategory() {
+        return category;
     }
 
-    public void setStocks(List<Stock> stocks) {
-        this.stocks = stocks;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -25,7 +25,11 @@ public class AddressService {
         addressRepository.save(address);
     }
 
-    public void deleteAddress(@PathVariable Long addressId) {
+    public void updateAddress(Address address){
+        addressRepository.save(address);
+    }
+
+    public void deleteAddress(Long addressId) {
         addressRepository.findById(addressId).orElseThrow(() -> new ResourceNotFoundException("Address does not exists"));
         addressRepository.deleteById(addressId);
     }

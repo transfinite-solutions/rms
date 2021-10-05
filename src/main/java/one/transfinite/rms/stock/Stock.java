@@ -1,5 +1,7 @@
 package one.transfinite.rms.stock;
 
+import one.transfinite.rms.order.Order;
+import one.transfinite.rms.order.OrderStock;
 import one.transfinite.rms.product.Product;
 import one.transfinite.rms.utility.Availability;
 import one.transfinite.rms.utility.DurationType;
@@ -7,6 +9,8 @@ import one.transfinite.rms.utility.DurationType;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "stock")
@@ -14,21 +18,31 @@ public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "stock_id")
     private Long stockId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "product_id")
     private Product product;
 
     @NotBlank
     private Double rate;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private DurationType durationType;
 
     @NotBlank
     private Long durationTime;
 
+    @Enumerated(EnumType.STRING)
     private Availability availability;
+
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "stock")
+//    private List<OrderStock> orderStocks = new ArrayList<>();
+
+    @ManyToMany
+    private List<Order> orders = new ArrayList<>();
 
     public Stock() {
     }
@@ -40,6 +54,16 @@ public class Stock {
         this.durationType = durationType;
         this.durationTime = durationTime;
         this.availability = availability;
+    }
+
+    public Stock(Long stockId, Product product, Double rate, DurationType durationType, Long durationTime, Availability availability, List<Order> orders) {
+        this.stockId = stockId;
+        this.product = product;
+        this.rate = rate;
+        this.durationType = durationType;
+        this.durationTime = durationTime;
+        this.availability = availability;
+        this.orders = orders;
     }
 
     public Long getStockId() {
@@ -88,5 +112,13 @@ public class Stock {
 
     public void setAvailability(Availability availability) {
         this.availability = availability;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

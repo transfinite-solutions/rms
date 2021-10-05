@@ -13,7 +13,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    private Role getRoleByName(String name) {
+    public Role getRoleByName(String name) {
         return roleRepository.findRoleByName(name).orElseThrow(() -> new ResourceNotFoundException("Role does not exists"));
     }
 }

@@ -1,6 +1,10 @@
 package one.transfinite.rms.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import one.transfinite.rms.address.Address;
 import one.transfinite.rms.role.Role;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
@@ -39,8 +40,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<UserAddress> userAddresses = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Address> addresses = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Role role;
@@ -49,18 +51,19 @@ public class User implements UserDetails {
     }
 
     public User(Long userId,
-                @NotBlank String name,
-                @NotBlank String email,
-                @NotBlank String phone,
-                @NotBlank String password,
-                Set<UserAddress> userAddresses,
-                Role role) {
+                String name,
+                String email,
+                String phone,
+                String password,
+                List<Address> addresses,
+                Role role
+    ) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.userAddresses = userAddresses;
+        this.addresses = addresses;
         this.role = role;
     }
 
@@ -138,12 +141,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<UserAddress> getUserAddresses() {
-        return userAddresses;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setUserAddresses(Set<UserAddress> userAddresses) {
-        this.userAddresses = userAddresses;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Role getRole() {
@@ -162,7 +165,7 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
-                ", userAddresses=" + userAddresses +
+                ", userAddresses=" + addresses +
                 ", role=" + role +
                 '}';
     }

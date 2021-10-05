@@ -26,6 +26,7 @@ public class Vehicle {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
+    @Enumerated(EnumType.STRING)
     private Availability availability;
 
     private Date createdAt;

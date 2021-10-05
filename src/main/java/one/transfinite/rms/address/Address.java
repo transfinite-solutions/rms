@@ -1,14 +1,13 @@
 package one.transfinite.rms.address;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import one.transfinite.rms.user.User;
 import one.transfinite.rms.user.UserAddress;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "address")
@@ -16,7 +15,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+    @Column(name = "address_id", updatable = false, nullable = false)
     private Long addressId;
 
     @NotBlank
@@ -43,13 +42,27 @@ public class Address {
 
     private String tag;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "address")
-    private Set<UserAddress> userAddresses = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
+//    private List<UserAddress> userAddresses = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     public Address() {
     }
 
-    public Address(Long addressId, String line1, String landmark, String city, String state, String country, String pincode, String tag, Set<UserAddress> userAddresses) {
+    public Address(Long addressId,
+                   String line1,
+                   String landmark,
+                   String city,
+                   String state,
+                   String country,
+                   String pincode,
+                   String tag,
+                    User user
+//                   List<UserAddress> userAddresses
+    ) {
         this.addressId = addressId;
         this.line1 = line1;
         this.landmark = landmark;
@@ -58,7 +71,8 @@ public class Address {
         this.country = country;
         this.pincode = pincode;
         this.tag = tag;
-        this.userAddresses = userAddresses;
+        this.user = user;
+//        this.userAddresses = userAddresses;
     }
 
     public Long getAddressId() {
@@ -125,12 +139,21 @@ public class Address {
         this.tag = tag;
     }
 
-    public Set<UserAddress> getUserAddresses() {
-        return userAddresses;
+//    public List<UserAddress> getUserAddresses() {
+//        return userAddresses;
+//    }
+//
+//    public void setUserAddresses(List<UserAddress> userAddresses) {
+//        this.userAddresses = userAddresses;
+//    }
+
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserAddresses(Set<UserAddress> userAddresses) {
-        this.userAddresses = userAddresses;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -144,7 +167,6 @@ public class Address {
                 ", country='" + country + '\'' +
                 ", pincode='" + pincode + '\'' +
                 ", tag='" + tag + '\'' +
-                ", userAddresses=" + userAddresses +
                 '}';
     }
 }
