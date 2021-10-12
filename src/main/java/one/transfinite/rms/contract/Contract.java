@@ -4,6 +4,7 @@ import one.transfinite.rms.product.Product;
 import one.transfinite.rms.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

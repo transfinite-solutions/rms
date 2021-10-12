@@ -2,11 +2,9 @@ package one.transfinite.rms.warehouse;
 
 import one.transfinite.rms.address.Address;
 import one.transfinite.rms.user.User;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "warehouse")
@@ -15,7 +13,7 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private Long vehicleId;
+    private Long warehouseId;
 
     private String name;
 
@@ -30,20 +28,20 @@ public class Warehouse {
     public Warehouse() {
     }
 
-    public Warehouse(Long vehicleId, String name, Address address, User user, Date createdAt) {
-        this.vehicleId = vehicleId;
+    public Warehouse(Long warehouseId, String name, Address address, User user, Date createdAt) {
+        this.warehouseId = warehouseId;
         this.name = name;
         this.address = address;
         this.user = user;
         this.createdAt = createdAt;
     }
 
-    public Long getVehicleId() {
-        return vehicleId;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setWarehouseId(Long warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
     public String getName() {

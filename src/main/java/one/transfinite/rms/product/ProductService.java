@@ -17,7 +17,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long productId) {
-        return this.productRepository.findById(productId).orElse(null);
+        return this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     public void addProduct(Product product) {

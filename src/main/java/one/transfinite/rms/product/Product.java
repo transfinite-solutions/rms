@@ -24,6 +24,10 @@ public class Product {
 
     private String imageUrl;
 
+    private String type;
+
+    private String registrationNumber;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
@@ -36,11 +40,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long productId, String name, String description, String imageUrl, User user, Category category) {
+    public Product(Long productId, String name, String description, String imageUrl, String type, String registrationNumber, User user, Category category) {
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.type = type;
+        this.registrationNumber = registrationNumber;
         this.user = user;
         this.category = category;
     }
@@ -100,5 +106,21 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 }

@@ -1,7 +1,7 @@
 package one.transfinite.rms.stock;
 
 import one.transfinite.rms.order.Order;
-import one.transfinite.rms.order.OrderStock;
+//import one.transfinite.rms.order.OrderStock;
 import one.transfinite.rms.product.Product;
 import one.transfinite.rms.utility.Availability;
 import one.transfinite.rms.utility.DurationType;
@@ -21,18 +21,15 @@ public class Stock {
     @Column(name = "stock_id")
     private Long stockId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "product_id")
     private Product product;
 
-    @NotBlank
     private Double rate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private DurationType durationType;
 
-    @NotBlank
     private Long durationTime;
 
     @Enumerated(EnumType.STRING)
