@@ -1,0 +1,47 @@
+<h3 style="text-align: center;margin-bottom: 3%;margin-top: 5%;color: black;font-family: 'Josefin Slab', serif;font-weight: 600;">Cart</h3>
+
+ <div *ngIf="cart.length === 0" class="alert" style="width: auto;padding: 15 rem;color: black;font-family: 'Josefin Slab', serif;font-weight: 600;;text-align: center; background:#ACE0E8;font-family: 'Josefin Slab', serif;font-weight: 600;">Your Cart Is Empty</div>
+ 
+ <div *ngIf="cart.length > 0 " style="width: 100%;height: 100% !important;">
+  <h4 style="text-align: center;margin-bottom: 3%;margin-top: 5%;color: black;font-family: 'Josefin Slab', serif;font-weight: 600;;">Kindly Confirm Your Products</h4>
+
+  <!-- <div *ngFor = "let item of cartItems"> -->
+  <!-- <app-cart-item [cartItem]="item"></app-cart-item> -->
+  <!-- <div>{{item }}</div> -->
+  <div style="text-align: center;    padding: 4rem;
+  display: inline-block;
+  margin-left: 6%;
+        margin-right: 6%;margin-top: -3%;">
+    <table class="table table-sm table-bordered table-responsive ">
+        <thead class="text-wrap thead-dark" style="width: 100%;font-weight: 600;">
+          <th style="width: 33%;"><h4>Name</h4></th>
+          <!-- <th style="width: 25%;"><h4>Quantity</h4></th> -->
+          <th style="width: 20%;"><h4>Rate</h4></th>
+          <th style="width: 20%;"><h4>Delete</h4></th>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let item of cart">
+                <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.name}}</td>
+                <!-- <td>
+                  <button  *ngIf="item.price" mat-mini-fab color type="button" (click)="decrementQuantity(item)"><mat-icon>remove</mat-icon></button>
+                  <input style="min-width: 30px !important;max-width: 50% !important;margin-left: 5px;margin-right: 5px;font-weight: bold;font-family: 'Josefin Slab', serif;text-align: center;" type="number"  min="1" readonly="true">
+                  <button  *ngIf="item.price" mat-mini-fab color type="button" (click)="incrementQuantity(item)" ><mat-icon>add</mat-icon></button>
+                </td> -->
+                <td  style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif">{{item.rate}}₹/{{item.durationType | lowercase}}</td>
+                <td><button mat-button color="primary" (click)="delete(item)"><mat-icon style="color:black;cursor: pointer;">delete_forever</mat-icon></button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <button mat-raised-button style="margin-top: 2%;;" color="primary" (click)="checkout()"><p style="color: white;">Checkout</p></button>
+  </div>
+  <!-- <mat-card>
+    <h4>Total</h4>{{cartTotal}}
+  </mat-card> -->
+<!-- 
+  <mat-card>
+    <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
+  </mat-card> -->
+   
+  
+</div>

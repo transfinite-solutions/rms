@@ -1,0 +1,40 @@
+
+.main-div {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   background:linear-gradient(to right, rgb(252, 92, 125), rgb(106, 130, 251));
+  //background-color:rgb(238,117,170);
+}
+
+.login-card {
+ margin-top: 4%;
+ font-family: Spartan;
+ height: auto;
+ width: 60vh;
+ display: flex;
+ justify-content: center;
+ background: transparent;
+ box-shadow: inset 0 0 2000px rgba(209, 184, 184, 0.589);
+ backdrop-filter: blur(5px);
+ border-top: 2px solid #343434;
+
+}
+
+.img{
+  width: 25vh;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  margin-left: 30%;
+  margin-top: -14vh;
+}
+
+.mat-button.mat-primary .mat-button-focus-overlay {
+  background-color: transparent;
+}
+
+.mat-stepper-horizontal {
+  background-color: transparent;
+}

@@ -1,0 +1,113 @@
+<div class="main-div">
+
+
+    <div>
+  
+      <!-- Long addressId,
+      String line1,
+      String landmark,
+      String city,
+      String state,
+      String country,
+      String pincode,
+      String tag -->
+  
+    <mat-card class="login-card">
+        <div class="row">
+          <h2 style="text-align: center;font-family: Spartan ;margin-top: 2%;color: azure;">Checkout</h2>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Pickup Date</mat-label>
+                <input matInput [matDatepicker]="pickup_date" placeholder="Ex. John Doe" [(ngModel)] = "rent.pickupDate" required>
+                <mat-datepicker-toggle matSuffix [for]="pickup_date"></mat-datepicker-toggle>
+                <mat-datepicker #pickup_date></mat-datepicker>
+            </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Drop Date</mat-label>
+                <input matInput [matDatepicker]="drop_date" placeholder="Ex. John Doe" [(ngModel)] = "rent.dropDate" required>
+                <mat-datepicker-toggle matSuffix [for]="drop_date"></mat-datepicker-toggle>
+                <mat-datepicker #drop_date></mat-datepicker>
+            </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Total price</mat-label>
+                <input matInput placeholder="Ex. 9999999999" [(ngModel)] = "rent.totalPrice" readonly>
+              </mat-form-field>
+              <!-- <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Line1</mat-label>
+                <input matInput [(ngModel)] = "address.line1" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Landmark</mat-label>
+                <input matInput [(ngModel)] = "address.landmark" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">City</mat-label>
+                <input matInput [(ngModel)] = "address.city" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">State</mat-label>
+                <input matInput [(ngModel)] = "address.state" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Country</mat-label>
+                <input matInput [(ngModel)] = "address.country" required>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                <mat-label style="color: azure;">Pincode</mat-label>
+                <input matInput [(ngModel)] = "address.pincode" required>
+              </mat-form-field> -->
+
+              <div>
+                <div *ngIf="user.addresses.length>0">
+                    <mat-radio-group [(ngModel)]="address" class="row address-container">
+                      <div *ngFor="let item of user.addresses" class="col-sm-6 m-1" style="width: auto; margin-left: 5px; margin-right: 5px;">
+                          <mat-card class="card">
+                              <mat-radio-button [value]="item">
+                                  <mat-card-title-group>
+                                      <!-- <mat-card-title><mat-radio-button [value]="item">{{item.city}}</mat-radio-button></mat-card-title> -->
+                                  <mat-card-title>{{item.city}}</mat-card-title>
+                                  <mat-card-subtitle>{{item.state}} {{item.country}}</mat-card-subtitle>
+                                  </mat-card-title-group>
+                                  <mat-card-content>
+                                  {{item.line1}}
+                                  <br>
+                                  {{item.landmark}}
+                                  {{item.pincode}}
+                                  </mat-card-content>
+                              </mat-radio-button>
+                            </mat-card>
+                        </div>
+                        <div class="col-sm-6" style="width: auto; margin-left: 5px; margin-right: 5px;">        
+                            <mat-card class="card col-sm-6" (click)="addAddress()">
+                                <mat-icon aria-hidden="false" aria-label="Add new address" style=" width: 100%; font-size: 120px; text-align: center;">add</mat-icon>
+                                
+                            </mat-card>
+                        </div>
+                    </mat-radio-group>
+                </div>
+              </div>
+
+              <h1 style="margin-top: 3rem;">Item to be purchased</h1>
+              <table class="table table-bordered table-responsive ">
+                <thead class="text-wrap thead-dark" style="width: 100%;font-weight: 600;">
+                  <th style="width: 33%;"><h4>Name</h4></th>
+                  <!-- <th style="width: 25%;"><h4>Quantity</h4></th> -->
+                  <th style="width: 20%;"><h4>Rate</h4></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let item of service.cart">
+                        <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.name}}</td>
+                        <!-- <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.quantity}}</td> -->
+                        <td  style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif">{{item.rate}}₹/{{item.durationType | lowercase}}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+              
+              <button type="submit" mat-raised-button (click)="proceed()" style="background-color: azure; margin-left: 35%; margin-top: 3rem;">Proceed</button><br><br>
+              
+    </div>
+    <!-- <a href=""  routerLink="Register" routerLinkActive="active"> Register Here</a> -->
+  
+    </mat-card>
+  
+    </div>

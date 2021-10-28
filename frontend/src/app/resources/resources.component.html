@@ -1,0 +1,22 @@
+<h3 style="font-family:'Spartan', sans-serif;text-align: center;margin-top: 2%;">Resources</h3>
+<div class="row">
+    <div *ngFor="let item of itemList" style="display: flex; justify-content: center; margin-bottom: 4%;width: fit-content;" class="col">
+        <mat-card style="max-width: 400px; background-color: grey; margin: 40px;">
+            <mat-card-header>
+                <mat-card-title>
+                    <b>{{item.name}}</b>
+                </mat-card-title>
+                <mat-card-subtitle>{{item.registrationNumber}}</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <img mat-card-img src={{item.product.imageUrl}} alt={{item.name}} /> -->
+            <img mat-card-img src={{placeholderImage}} alt={{item.name}} />
+            <mat-card-content>
+                <p>{{item.description}}</p>
+                <h4>Rate : {{item.rate}}/{{item.durationType | lowercase}}</h4>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button style="background: whitesmoke;" (click)="handleSubmit(item)">{{item.type}}</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

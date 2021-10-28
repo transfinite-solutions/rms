@@ -1,0 +1,40 @@
+<!-- <mat-card style="text-align: center;background-color:rgb(250, 255, 173);">
+</mat-card>  -->
+    <h3 style="font-family:'Spartan', sans-serif;text-align: center;margin-top: 2%;">Transport</h3>
+
+<div class="row">
+    <!-- <mat-card class="vehicle-info">
+
+    </mat-card>
+
+    <mat-card class="vehicle-info">
+
+    </mat-card>
+    <mat-card class="vehicle-info">
+
+    </mat-card>
+    <mat-card class="vehicle-info">
+
+    </mat-card> -->
+    
+    <div *ngFor="let item of itemList">
+        <mat-card style="max-width: 400px; background-color: grey; margin: 40px;">
+            <mat-card-header>
+                <mat-card-title>
+                    <b>{{item.name}}</b>
+                </mat-card-title>
+                <mat-card-subtitle>{{item.registrationNumber}}</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <img mat-card-img src="{{this.service.BASE_URL}}/resources/images/item/{{item.imageUrl}}"" alt={{item.name}} /> -->
+            <img mat-card-img src={{placeholderImage}} alt={{item.name}} />
+            <mat-card-content>
+                <p>{{item.description}}</p>
+                <h4>Rate : {{item.rate}}₹/{{item.durationType | lowercase}}</h4>
+                <h5>Available quantity: {{item.quantity}}</h5>
+            </mat-card-content>
+            <mat-card-actions>
+                <button style="background: whitesmoke;" (click)="handleSubmit(item)" mat-raised-button>{{item.type}}</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
