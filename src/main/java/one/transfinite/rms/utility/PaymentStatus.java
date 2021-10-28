@@ -1,5 +1,5 @@
 package one.transfinite.rms.utility;
 
 public enum PaymentStatus {
-    PAID, OVERDUE
+    PAID, UNPAID, OVERDUE
 }

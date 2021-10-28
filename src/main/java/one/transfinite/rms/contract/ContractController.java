@@ -1,6 +1,8 @@
 package one.transfinite.rms.contract;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class ContractController {
     }
 
     @PostMapping
-    public void addContract(@RequestBody Contract contract) {
-        contractService.addContract(contract);
+    public ResponseEntity<Contract> addContract(@RequestBody Contract contract) {
+        Contract savedContract = contractService.addContract(contract);
+        return new ResponseEntity<>(savedContract, HttpStatus.OK);
     }
 
     @PutMapping

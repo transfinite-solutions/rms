@@ -5,6 +5,8 @@ import one.transfinite.rms.stock.Stock;
 import one.transfinite.rms.user.User;
 import one.transfinite.rms.utility.PaymentStatus;
 import one.transfinite.rms.utility.Status;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -44,10 +46,10 @@ public class Rent {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "order_stock",
-            joinColumns = @JoinColumn(name = "order_id"),
+            name = "rent_stock",
+            joinColumns = @JoinColumn(name = "rent_id"),
             inverseJoinColumns = @JoinColumn(name = "stock_id"))
     private List<Stock> orderStocks = new ArrayList<>();
 
@@ -154,5 +156,22 @@ public class Rent {
 
     public void setOrderStocks(List<Stock> orderStocks) {
         this.orderStocks = orderStocks;
+    }
+
+    @Override
+    public String toString() {
+        return "Rent{" +
+                "rentId=" + rentId +
+                ", vendor=" + vendor +
+                ", customer=" + customer +
+                ", pickupDate=" + pickupDate +
+                ", dropDate=" + dropDate +
+                ", createdAt=" + createdAt +
+                ", status=" + status +
+                ", address=" + address +
+                ", totalPrice=" + totalPrice +
+                ", paymentStatus=" + paymentStatus +
+                ", orderStocks=" + orderStocks +
+                '}';
     }
 }

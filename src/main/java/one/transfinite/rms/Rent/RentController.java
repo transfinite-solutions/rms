@@ -1,10 +1,18 @@
 package one.transfinite.rms.Rent;
 
+import one.transfinite.rms.address.Address;
+import one.transfinite.rms.address.AddressService;
 import one.transfinite.rms.execption.ResourceNotFoundException;
+import one.transfinite.rms.stock.Stock;
+import one.transfinite.rms.stock.StockService;
+import one.transfinite.rms.user.User;
+import one.transfinite.rms.user.UserService;
+import one.transfinite.rms.utility.Availability;
 import one.transfinite.rms.utility.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +22,15 @@ public class RentController {
 
     @Autowired
     private RentService rentService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private StockService stockService;
 
     @GetMapping
     public List<Rent> getAllRents() {
@@ -27,6 +44,25 @@ public class RentController {
 
     @PostMapping
     public void addRent(@RequestBody Rent rent) {
+        System.out.println(rent);
+        rentService.addRent(rent);
+    }
+
+    @PostMapping("/customer/{customerId}/address/{addressId}")
+    public void addRentByCustomer(@PathVariable("customerId") Long customerId,
+                                  @PathVariable("addressId") Long addressId,
+                                  @RequestBody Rent rent) {
+        User customer = this.userService.getUserById(customerId);
+        Address address = this.addressService.getAddressById(addressId);
+        rent.setCustomer(customer);
+        rent.setAddress(address);
+        List<Stock> stockList = new ArrayList<>();
+        rent.getOrderStocks().forEach(stock -> {
+            Stock stockById = this.stockService.getStockById(stock.getStockId());
+            stockById.setAvailability(Availability.RENTED);
+            stockList.add(stockById);
+        });
+        rent.setOrderStocks(stockList);
         rentService.addRent(rent);
     }
 

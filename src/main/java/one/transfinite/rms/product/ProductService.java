@@ -20,8 +20,8 @@ public class ProductService {
         return this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
-    public void addProduct(Product product) {
-        this.productRepository.save(product);
+    public Product addProduct(Product product) {
+        return this.productRepository.save(product);
     }
 
     public void deleteProduct(Long productId) {

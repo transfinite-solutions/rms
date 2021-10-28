@@ -5,6 +5,8 @@ import one.transfinite.rms.category.CategoryService;
 import one.transfinite.rms.user.User;
 import one.transfinite.rms.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,10 +35,11 @@ public class ProductController {
     }
 
     @PostMapping("/user/{userId}")
-    public void addProduct(@RequestBody Product product, @PathVariable("userId") Long userId) {
+    public ResponseEntity<Product> addProduct(@PathVariable("userId") Long userId, @RequestBody Product product) {
         User user = this.userService.getUserById(userId);
         product.setUser(user);
-        productService.addProduct(product);
+        Product savedProduct = productService.addProduct(product);
+        return new ResponseEntity<>(savedProduct, HttpStatus.OK);
     }
 
     @PostMapping("/user/{userId}/category/{categoryId}")

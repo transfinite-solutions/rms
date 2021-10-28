@@ -35,7 +35,6 @@ public class UserController {
 
     @PostMapping("/customer")
     public void addCustomer(@Valid @RequestBody User user) {
-        System.out.println(user);
         Role role = roleService.getRoleByName(RoleName.CUSTOMER.name());
         user.setRole(role);
         this.userService.addUser(user);
@@ -46,6 +45,11 @@ public class UserController {
         Role role = roleService.getRoleByName(RoleName.VENDOR.name());
         user.setRole(role);
         this.userService.addUser(user);
+    }
+
+    @PutMapping
+    public void updateUser(@Valid @RequestBody User user) {
+        this.userService.updateUser(user);
     }
 
     @PostMapping("/{userId}/address")

@@ -2,7 +2,7 @@ package one.transfinite.rms.authentication;
 
 public class AuthenticationResponse {
 
-    String token;
+    private String token;
 
     public AuthenticationResponse() {
     }

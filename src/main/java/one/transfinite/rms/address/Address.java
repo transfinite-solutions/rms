@@ -1,6 +1,7 @@
 package one.transfinite.rms.address;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import one.transfinite.rms.Rent.Rent;
 import one.transfinite.rms.user.User;
 import one.transfinite.rms.user.UserAddress;
 
@@ -48,6 +49,11 @@ public class Address {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
+
+//    @JsonIgnore
+//    @Transient
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Rent> rentList;
 
     public Address() {
     }

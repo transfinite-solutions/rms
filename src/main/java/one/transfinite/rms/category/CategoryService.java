@@ -20,8 +20,9 @@ public class CategoryService {
         return this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category does not exists"));
     }
 
-    public void addCategory(Category category) {
-        this.categoryRepository.save(category);
+    public Category addCategory(Category category) {
+
+        return this.categoryRepository.save(category);
     }
 
     public void updatwCategory(Category category){

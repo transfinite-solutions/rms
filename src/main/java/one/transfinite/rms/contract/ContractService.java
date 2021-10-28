@@ -20,8 +20,8 @@ public class ContractService {
         return contractRepository.findById(contractId).orElseThrow(() -> new ResourceNotFoundException("Contract does not exists"));
     }
 
-    public void addContract(Contract contract) {
-        contractRepository.save(contract);
+    public Contract addContract(Contract contract) {
+        return contractRepository.save(contract);
     }
 
     public void updateContract(Contract contract){

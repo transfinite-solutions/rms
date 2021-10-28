@@ -1,6 +1,8 @@
 package one.transfinite.rms.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void addCategory(@RequestBody Category category) {
-        categoryService.addCategory(category);
+    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+        Category category1 = categoryService.addCategory(category);
+        return ResponseEntity.ok(category1);
     }
 
     @DeleteMapping("/{categoryId}")

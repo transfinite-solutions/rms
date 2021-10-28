@@ -119,9 +119,12 @@ class SellServiceTest {
         sell.setPaymentStatus(null);
 
         when(sellRepository.findById(sellId)).thenReturn(Optional.ofNullable(null));
-        Sell sellById = sellService.getSellById(sellId);
+        try {
+            Sell sellById = sellService.getSellById(sellId);
+        } catch (ResourceNotFoundException e) {
+            assertThat(e.getMessage()).isEqualTo("Sell order does not exists");
+        }
 
-        assertThat(sellById).isEqualTo(sell);
     }
 
     @Test
@@ -1074,7 +1077,7 @@ class SellServiceTest {
 
     @Test
     void testDeleteSell2() {
-        doNothing().when(this.sellRepository).deleteById((Long) any());
+//        doNothing().when(this.sellRepository).deleteById((Long) any());
         when(this.sellRepository.findById((Long) any())).thenReturn(Optional.<Sell>empty());
         assertThrows(ResourceNotFoundException.class, () -> this.sellService.deleteSell(123L));
         verify(this.sellRepository).findById((Long) any());
