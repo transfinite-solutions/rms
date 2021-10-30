@@ -3,6 +3,7 @@ package one.transfinite.rms.stock;
 import one.transfinite.rms.Constant;
 import one.transfinite.rms.product.Product;
 import one.transfinite.rms.product.ProductService;
+import one.transfinite.rms.utility.Availability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,13 @@ public class StockController {
     @GetMapping("/product/{productId}")
     public List<Stock> getStockByProduct(@PathVariable("productId") Long productId) {
         return stockService.getStockByProductId(productId);
+    }
+
+    @GetMapping("/product/{productId}/availability/{availability}")
+    public List<Stock> getStockByProduct(@PathVariable("productId") Long productId,
+                                         @PathVariable("availability") Availability availability) {
+      System.out.println(productId + " " + availability);
+      return stockService.getStockByProductAndAvailability(productId, availability);
     }
 
     @GetMapping("/category/{categoryId}")

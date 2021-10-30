@@ -90,13 +90,13 @@
               <table class="table table-bordered table-responsive ">
                 <thead class="text-wrap thead-dark" style="width: 100%;font-weight: 600;">
                   <th style="width: 33%;"><h4>Name</h4></th>
-                  <!-- <th style="width: 25%;"><h4>Quantity</h4></th> -->
+                  <th style="width: 25%;"><h4>Quantity</h4></th>
                   <th style="width: 20%;"><h4>Rate</h4></th>
                 </thead>
                 <tbody>
                     <tr *ngFor = "let item of service.cart">
                         <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.name}}</td>
-                        <!-- <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.quantity}}</td> -->
+                        <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.quantity}}</td>
                         <td  style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif">{{item.rate}}₹/{{item.durationType | lowercase}}</td>
                     </tr>
                     

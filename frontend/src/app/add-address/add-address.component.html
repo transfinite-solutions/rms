@@ -1,0 +1,36 @@
+<div class="main-div">
+    <div>
+        <mat-card class="login-card">
+            <div class="row">
+                <h2 style="text-align: center;font-family: Spartan ;margin-top: 2%;color: azure;">Add new address</h2>
+                <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">Line1</mat-label>
+                    <input matInput [(ngModel)] = "address.line1" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">Landmark</mat-label>
+                    <input matInput [(ngModel)] = "address.landmark" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">City</mat-label>
+                    <input matInput [(ngModel)] = "address.city" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">State</mat-label>
+                    <input matInput [(ngModel)] = "address.state" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">Country</mat-label>
+                    <input matInput [(ngModel)] = "address.country" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+                    <mat-label style="color: azure;">Pincode</mat-label>
+                    <input matInput [(ngModel)] = "address.pincode" required>
+                  </mat-form-field>
+                  
+                  <button type="submit" mat-raised-button (click)="addAddress()" style="background-color: azure; margin-left: 35%;">Add Address</button><br><br>
+                  
+            </div>
+        </mat-card>
+    </div>
+</div>

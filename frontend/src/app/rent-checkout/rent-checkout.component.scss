@@ -16,3 +16,25 @@
 // .address-container::-webkit-scrollbar {
 //     display: none;
 // }
+
+/* width */
+.address-container::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+.address-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.address-container::-webkit-scrollbar-thumb {
+    background: #17a2b8; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.address-container::-webkit-scrollbar-thumb:hover {
+    background: #068296; 
+}

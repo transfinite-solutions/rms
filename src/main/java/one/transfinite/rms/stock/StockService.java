@@ -3,6 +3,7 @@ package one.transfinite.rms.stock;
 import one.transfinite.rms.execption.ResourceNotFoundException;
 import one.transfinite.rms.product.Product;
 import one.transfinite.rms.product.ProductRepository;
+import one.transfinite.rms.utility.Availability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,13 @@ public class StockService {
     public List<Stock> getStockByProductId(Long productId) {
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product does not exists"));
         return this.stockRepository.findStockByProduct(product).orElseThrow(() -> new ResourceNotFoundException("Stock does not exists"));
+    }
+
+    public List<Stock> getStockByProductAndAvailability(Long productId, Availability availability) {
+      Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product does not exists"));
+      List<Stock> stockList = this.stockRepository.findStockByProductAndAvailability(product, availability).orElseThrow(() -> new ResourceNotFoundException("Stock does not exists"));
+      System.out.println(stockList);
+      return stockList;
     }
 
     public List<Map<String, Object>> getStockByCategoryId(Long categoryId) {

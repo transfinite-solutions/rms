@@ -1,6 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { AddAddressComponent } from '../add-address/add-address.component';
 import { ServiceService } from '../service.service';
 
 @Component({
@@ -44,7 +46,7 @@ export class RentCheckoutComponent implements OnInit {
     orderStocks: []
   }
 
-  constructor( private router: Router, private service : ServiceService ) { }
+  constructor( private router: Router, private service : ServiceService, private dialog: MatDialog ) { }
 
   ngOnInit() {
     this.httpOptions = { headers : new HttpHeaders({ "Authorization": localStorage.getItem("token") }) };
@@ -52,26 +54,61 @@ export class RentCheckoutComponent implements OnInit {
   }
 
   fetchData() {
+    this.rent.totalPrice = this.service.cart.map(val => val.rate * val.quantity).reduce((prev: any, next: any) => prev + next, 0);
+    this.service.cart.forEach(element => {
+      console.log(element);
+      this.service.get("/stock/product/" + element.product_id + "/availability/AVAILABLE", this.httpOptions).subscribe(res => {
+        console.log(res);
+        if(res.length == 0) {
+          alert("Product in cart no longer available");
+          this.service.cart.filter(el => !(el.product_id == element.product_id));
+          this.router.navigateByUrl("");
+        } else if(element.quantity <= res.length) {
+          for(let i=0; i<element.quantity; i++) {
+            res[i].product = null;
+            this.rent.orderStocks.push(res[i]);
+          }
+        } else {
+          alert("Product in cart no longer available");
+          element.quantity = res.length;
+          this.router.navigateByUrl("");
+        }
+      }, err => {
+        console.log(err);
+      });
+      console.log(this.rent.orderStocks);
+    });
+    // this.service.cart.forEach((element: any) => {
+    //   this.rent.orderStocks.push({
+    //     stockId: element.stock_id,
+    //     rate: element.rate,
+    //     durationType: element.durationType,
+    //     durationTime: element.durationTime,
+    //     availability: element.availability
+    //   });
+    // });
+    this.getUserDetails();
+  }
+
+  getUserDetails() {
     this.service.get("/get-user", this.httpOptions).subscribe(res => {
       this.user = res;
       if(this.user.addresses.length != 0) {
         this.address = this.user.addresses[0];
       }
-    }, err => { console.log("Login expired"); });
-    this.rent.totalPrice = this.service.cart.map(val => val.rate).reduce((prev: any, next: any) => prev + next, 0);
-    this.service.cart.forEach((element: any) => {
-      this.rent.orderStocks.push({
-        stockId: element.stock_id,
-        rate: element.rate,
-        durationType: element.durationType,
-        durationTime: element.durationTime,
-        availability: element.availability
-      });
+    }, err => { 
+      console.log("Login expired");
+      this.router.navigateByUrl("Login");
     });
   }
 
   addAddress() {
     console.log("add address");
+    const dialogRef = this.dialog.open(AddAddressComponent, {width: "70%",height: "86vh",panelClass: 'full-width-dialog', data: this.user});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.getUserDetails();
+    });
   }
 
   proceed() {

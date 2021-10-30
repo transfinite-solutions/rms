@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
+import { AddAddressComponent } from './add-address/add-address.component';
 import { CartComponent } from './cart/cart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DocumentsComponent } from './documents/documents.component';
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path: 'rent-checkout',
     component: RentCheckoutComponent
+  },
+  {
+    path: 'add-address',
+    component: AddAddressComponent
   }
 
 

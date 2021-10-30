@@ -40,9 +40,9 @@ export class TransportComponent implements OnInit {
   }
 
   handleSubmit(item) {
-    this.service.cart.indexOf(item) === -1 ? this.service.cart.push(item) : alert("Item already in your cart");
-    // this.service.cart.push(item);
-    console.log(this.service.cart);
+    // this.service.cart.indexOf(item) === -1 ? this.service.cart.push(item) : alert("Item already in your cart");
+    // // this.service.cart.push(item);
+    // console.log(this.service.cart);
 
     // let found = this.service.cart.some(el => el.stock_id != item.stock_id);
     // let index = this.service.cart.indexOf(item);
@@ -52,6 +52,68 @@ export class TransportComponent implements OnInit {
     // } else {
     //   this.service.cart[index].quantity !== item.quantity ? this.service.cart[index].quantity += 1 : alert("item not available");
     // }
+
+    // let found = this.service.cart.some(el => el.product_id == item.product_id);
+    // console.log(found);
+    // let index = this.service.cart.findIndex(el => el.product_id = item.product_id);
+    // console.log(index);
+    // if(!found) {
+    //   this.service.cart.push({
+    //     availability: item.availability,
+    //     category_categoryId: item.category_categoryId,
+    //     description: item.description,
+    //     durationTime: item.durationTime,
+    //     durationType: item.durationType,
+    //     imageUrl: item.imageUrl,
+    //     name: item.name,
+    //     product_id: item.product_id,
+    //     product_product_id: item.product_product_id,
+    //     quantity: 1,
+    //     rate: item.rate,
+    //     registrationNumber: item.registrationNumber,
+    //     stock_id: item.stock_id,
+    //     type: item.type,
+    //     user_user_id: item.user_user_id
+    //   });
+    // } else {
+    //   this.service.cart[index].quantity !== item.quantity ? this.service.cart[index].quantity += 1 : alert("No more stock available");
+    // }
+    // console.log(this.service.cart);
+
+    let exists = false;
+    this.service.cart.forEach(element => {
+      if(element.product_id === item.product_id && element.quantity < item.quantity) {
+        element.quantity += 1;
+        console.log(this.service.cart);
+        exists = true;
+        return false;
+      } else if(element.product_id === item.product_id && element.quantity >= item.quantity) {
+        alert("Exceeded available quantity");
+        console.log(this.service.cart);
+        exists = true;
+        return false;
+      }
+    });
+    if(!exists) {
+      this.service.cart.push({
+            availability: item.availability,
+            category_categoryId: item.category_categoryId,
+            description: item.description,
+            durationTime: item.durationTime,
+            durationType: item.durationType,
+            imageUrl: item.imageUrl,
+            name: item.name,
+            product_id: item.product_id,
+            product_product_id: item.product_product_id,
+            quantity: 1,
+            rate: item.rate,
+            registrationNumber: item.registrationNumber,
+            stock_id: item.stock_id,
+            type: item.type,
+            user_user_id: item.user_user_id
+      });
+      console.log(this.service.cart);
+    }
   }
 
 }

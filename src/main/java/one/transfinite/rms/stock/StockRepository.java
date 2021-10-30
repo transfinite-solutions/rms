@@ -2,6 +2,7 @@ package one.transfinite.rms.stock;
 
 import one.transfinite.rms.category.Category;
 import one.transfinite.rms.product.Product;
+import one.transfinite.rms.utility.Availability;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,6 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
     @Query(value = "SELECT *, COUNT(*) AS quantity FROM stock s INNER JOIN product p ON s.product_product_id = p.product_id WHERE p.category_categoryId = :categoryId AND s.availability = \"AVAILABLE\" GROUP BY S.product_product_id", nativeQuery = true)
     Optional<List<Map<String, Object>>> findStockByCategory(Long categoryId);
+
+    Optional<List<Stock>> findStockByProductAndAvailability(Product product, Availability availability);
 }

@@ -15,13 +15,14 @@
     <table class="table table-sm table-bordered table-responsive ">
         <thead class="text-wrap thead-dark" style="width: 100%;font-weight: 600;">
           <th style="width: 33%;"><h4>Name</h4></th>
-          <!-- <th style="width: 25%;"><h4>Quantity</h4></th> -->
+          <th style="width: 25%;"><h4>Quantity</h4></th>
           <th style="width: 20%;"><h4>Rate</h4></th>
           <th style="width: 20%;"><h4>Delete</h4></th>
         </thead>
         <tbody>
             <tr *ngFor = "let item of cart">
                 <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.name}}</td>
+                <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.quantity}}</td>
                 <!-- <td>
                   <button  *ngIf="item.price" mat-mini-fab color type="button" (click)="decrementQuantity(item)"><mat-icon>remove</mat-icon></button>
                   <input style="min-width: 30px !important;max-width: 50% !important;margin-left: 5px;margin-right: 5px;font-weight: bold;font-family: 'Josefin Slab', serif;text-align: center;" type="number"  min="1" readonly="true">

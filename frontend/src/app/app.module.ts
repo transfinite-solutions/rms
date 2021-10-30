@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common';
 import { CartComponent } from './cart/cart.component';
 import { RentCheckoutComponent } from './rent-checkout/rent-checkout.component';
 import { CardComponent } from './card/card.component';
+import { AddAddressComponent } from './add-address/add-address.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { CardComponent } from './card/card.component';
     CartComponent,
     RentCheckoutComponent,
     CardComponent,
+    AddAddressComponent,
   ],
   imports: [
     BrowserModule,
