@@ -35,19 +35,19 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public List<Address> addAddressBulk(List<Address> addresses) {
-      addresses.forEach(address -> {
-        if(address.getLine1() == null
-          && address.getCity() == null
-          && address.getState() == null
-          && address.getCountry() == null
-          && address.getPincode() == null
-        ){
-          throw new ApiBadRequestException("Necessary address field not provided");
-        }
-      });
-      return this.addressRepository.saveAll(addresses);
-    }
+//    public List<Address> addAddressBulk(List<Address> addresses) {
+//      addresses.forEach(address -> {
+//        if(address.getLine1() == null
+//          && address.getCity() == null
+//          && address.getState() == null
+//          && address.getCountry() == null
+//          && address.getPincode() == null
+//        ){
+//          throw new ApiBadRequestException("Necessary address field not provided");
+//        }
+//      });
+//      return this.addressRepository.saveAll(addresses);
+//    }
 
     public Address updateAddress(Address address){
 

@@ -13,18 +13,25 @@ export class RegisterComponent implements OnInit {
     name: "",
     email: "",
     phone: "",
-    password: "",
-    addresses: []
+    password: ""
   }
 
-  address = {
-    line1 : "",
-    landmark: "",
-    city: "",
-    state: "",
-    country: "",
-    pincode: ""
-  }
+  // user = {
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   password: "",
+  //   addresses: []
+  // }
+
+  // address = {
+  //   line1 : "",
+  //   landmark: "",
+  //   city: "",
+  //   state: "",
+  //   country: "",
+  //   pincode: ""
+  // }
 
   constructor(private router: Router,
     private service: ServiceService) { }
@@ -33,7 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    this.user.addresses[0] = this.address;
+    // this.user.addresses[0] = this.address;
     console.log(this.user);
     this.service.postData("/register", this.user).subscribe(res => {
       localStorage.setItem("token", "BEARER "+res.token);

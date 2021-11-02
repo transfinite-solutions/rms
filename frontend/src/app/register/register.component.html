@@ -15,8 +15,8 @@
   <mat-card class="login-card">
       <div class="row">
         <h2 style="text-align: center;font-family: Spartan ;margin-top: 2%;color: azure;">Register</h2>
-        <mat-horizontal-stepper #stepper>
-          <mat-step label="Fill your detail">
+        <!-- <mat-horizontal-stepper #stepper>
+          <mat-step label="Fill your detail"> -->
             <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
               <mat-label style="color: azure;">Name</mat-label>
               <input matInput placeholder="Ex. John Doe" [(ngModel)] = "user.name" required>
@@ -33,16 +33,16 @@
                 <mat-label style="color: azure;">Password</mat-label>
                 <input matInput type="password"  [(ngModel)] = "user.password" required>
               </mat-form-field>
-              <div>
+              <!-- <div>
                 <button style="background: white;" mat-raised-button matStepperNext>Next</button>
               </div>
-              <!-- <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
+              <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
                 <mat-label style="color: azure;">Address</mat-label>
                 <input matInput>
               </mat-form-field>
               <button mat-raised-button (click)="login()" style="background-color: azure;    margin-left: 20vh;">Save & Register</button><br><br> -->
             <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; -->
-          </mat-step>
+          <!-- </mat-step>
           <mat-step label="Fill your address">
             <mat-form-field class="example-full-width" appearance="" style="width: 100%;margin-top: 5%;">
               <mat-label style="color: azure;">Line1</mat-label>
@@ -74,7 +74,8 @@
               <button style="background: white;" mat-button matStepperPrevious>Back</button>
             </div>
           </mat-step>
-        </mat-horizontal-stepper>
+        </mat-horizontal-stepper> -->
+        <button type="submit" mat-raised-button (click)="register()" style="background-color: azure; margin-left: 35%;">Save & Register</button><br><br>
        <!-- <a style="margin-left: 9vh;" (click)="register()"> Don't have an account? Sign up</a> -->
 
   </div>

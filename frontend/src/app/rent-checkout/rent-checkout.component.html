@@ -57,25 +57,27 @@
               </mat-form-field> -->
 
               <div>
-                <div *ngIf="user.addresses.length>0">
+                <div>
                     <mat-radio-group [(ngModel)]="address" class="row address-container">
-                      <div *ngFor="let item of user.addresses" class="col-sm-6 m-1" style="width: auto; margin-left: 5px; margin-right: 5px;">
-                          <mat-card class="card">
-                              <mat-radio-button [value]="item">
-                                  <mat-card-title-group>
-                                      <!-- <mat-card-title><mat-radio-button [value]="item">{{item.city}}</mat-radio-button></mat-card-title> -->
-                                  <mat-card-title>{{item.city}}</mat-card-title>
-                                  <mat-card-subtitle>{{item.state}} {{item.country}}</mat-card-subtitle>
-                                  </mat-card-title-group>
-                                  <mat-card-content>
-                                  {{item.line1}}
-                                  <br>
-                                  {{item.landmark}}
-                                  {{item.pincode}}
-                                  </mat-card-content>
-                              </mat-radio-button>
-                            </mat-card>
-                        </div>
+                        <!-- <div *ngIf="user.addresses.length>0"> -->
+                          <div *ngFor="let item of user.addresses" class="col-sm-6 m-1" style="width: auto; margin-left: 5px; margin-right: 5px;">
+                            <mat-card class="card">
+                                <mat-radio-button [value]="item">
+                                    <mat-card-title-group>
+                                        <!-- <mat-card-title><mat-radio-button [value]="item">{{item.city}}</mat-radio-button></mat-card-title> -->
+                                    <mat-card-title>{{item.city}}</mat-card-title>
+                                    <mat-card-subtitle>{{item.state}} {{item.country}}</mat-card-subtitle>
+                                    </mat-card-title-group>
+                                    <mat-card-content>
+                                    {{item.line1}}
+                                    <br>
+                                    {{item.landmark}}
+                                    {{item.pincode}}
+                                    </mat-card-content>
+                                </mat-radio-button>
+                              </mat-card>
+                          </div>
+                        <!-- </div> -->
                         <div class="col-sm-6" style="width: auto; margin-left: 5px; margin-right: 5px;">        
                             <mat-card class="card col-sm-6" (click)="addAddress()">
                                 <mat-icon aria-hidden="false" aria-label="Add new address" style=" width: 100%; font-size: 120px; text-align: center;">add</mat-icon>
