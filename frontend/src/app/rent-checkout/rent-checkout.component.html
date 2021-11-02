@@ -94,7 +94,7 @@
                   <th style="width: 20%;"><h4>Rate</h4></th>
                 </thead>
                 <tbody>
-                    <tr *ngFor = "let item of service.cart">
+                    <tr *ngFor = "let item of rentItem">
                         <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.name}}</td>
                         <td style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif;">{{item.quantity}}</td>
                         <td  style="color: black;font-weight: 600;font-family: 'Josefin Slab', serif">{{item.rate}}₹/{{item.durationType | lowercase}}</td>

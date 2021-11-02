@@ -11,6 +11,8 @@ import { ServiceService } from '../service.service';
 export class CartComponent implements OnInit {
 
   cart: any;
+  rentItem: any;
+  sellItem: any;
 
   constructor(private service : ServiceService,
     private router : Router) {
@@ -23,6 +25,10 @@ export class CartComponent implements OnInit {
 
   fetchData() {
     this.cart = this.service.cart;
+    this.rentItem = this.service.cart.filter(el => el.type == "rent");
+    this.sellItem = this.service.cart.filter(el => el.type == "sell");
+    console.log(this.rentItem);
+    console.log(this.sellItem);
     console.log(this.cart);
   }
 
@@ -31,7 +37,7 @@ export class CartComponent implements OnInit {
     console.log(this.service.cart);
   }
 
-  checkout() {
+  rentCheckout() {
     // let httpOptions : any = { 
     //   headers : new HttpHeaders({
     //     "Authorization": localStorage.getItem("token")
@@ -48,6 +54,10 @@ export class CartComponent implements OnInit {
     //   console.log(err);
     // });
     this.router.navigateByUrl("/rent-checkout");
+  }
+
+  sellCheckout() {
+    this.router.navigateByUrl("");
   }
 
 }

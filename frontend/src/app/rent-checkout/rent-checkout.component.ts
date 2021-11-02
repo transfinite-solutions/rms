@@ -14,6 +14,7 @@ export class RentCheckoutComponent implements OnInit {
 
   user;
   items = [];
+  rentItem: any;
   httpOptions: any;
 
   address = {
@@ -54,14 +55,17 @@ export class RentCheckoutComponent implements OnInit {
   }
 
   fetchData() {
-    this.rent.totalPrice = this.service.cart.map(val => val.rate * val.quantity).reduce((prev: any, next: any) => prev + next, 0);
-    this.service.cart.forEach(element => {
+    
+    this.rentItem = this.service.cart.filter(el => el.type == "rent");
+
+    this.rent.totalPrice = this.rentItem.map(val => val.rate * val.quantity).reduce((prev: any, next: any) => prev + next, 0);
+    this.rentItem.forEach(element => {
       console.log(element);
       this.service.get("/stock/product/" + element.product_id + "/availability/AVAILABLE", this.httpOptions).subscribe(res => {
         console.log(res);
         if(res.length == 0) {
           alert("Product in cart no longer available");
-          this.service.cart.filter(el => !(el.product_id == element.product_id));
+          this.rentItem.filter(el => !(el.product_id == element.product_id));
           this.router.navigateByUrl("");
         } else if(element.quantity <= res.length) {
           for(let i=0; i<element.quantity; i++) {

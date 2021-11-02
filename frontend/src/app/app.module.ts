@@ -29,6 +29,7 @@ import { CartComponent } from './cart/cart.component';
 import { RentCheckoutComponent } from './rent-checkout/rent-checkout.component';
 import { CardComponent } from './card/card.component';
 import { AddAddressComponent } from './add-address/add-address.component';
+import { SellCheckoutComponent } from './sell-checkout/sell-checkout.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { AddAddressComponent } from './add-address/add-address.component';
     RentCheckoutComponent,
     CardComponent,
     AddAddressComponent,
+    SellCheckoutComponent,
   ],
   imports: [
     BrowserModule,
